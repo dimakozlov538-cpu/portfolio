@@ -1,0 +1,20 @@
+# Бинарные файлы Go
+portfolio
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Тесты
+*.test
+
+# Зависимости
+vendor/
+
+# Переменные окружения (если будут пароли)
+.env
+
+# IDE
+.idea/
+.vscode/
