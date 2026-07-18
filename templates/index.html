@@ -10,13 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Анимация входа (Boot Sequence) -->
+    <!-- Быстрая анимация входа -->
     <div class="boot-sequence" id="bootAnim">
         <div class="boot-window">
-            <div class="boot-line" data-text="> initializing backend_environment..."></div>
-            <div class="boot-line" data-text="> loading database connections [OK]"></div>
-            <div class="boot-line" data-text="> mounting portfolio routes..."></div>
-            <div class="boot-line success" data-text="> build successful. starting server on :8080"></div>
+            <div class="welcome-text">
+                <span class="prompt">$</span>
+                <span class="typed-text">Welcome to my portfolio</span>
+                <span class="cursor">▋</span>
+            </div>
         </div>
     </div>
 
@@ -30,32 +31,23 @@
                 <span>EXPLORER</span>
             </div>
             <nav class="sidebar-nav">
-                <a href="#profile" class="nav-item active"><span class="icon">👤</span> profile.go</a>
-                <a href="#about" class="nav-item"><span class="icon">📄</span> about.md</a>
-                <a href="#projects" class="nav-item"><span class="icon">📦</span> projects/</a>
-                <a href="#skills" class="nav-item"><span class="icon">⚙️</span> go.mod</a>
-                <a href="#experience" class="nav-item"><span class="icon">🏆</span> achievements.log</a>
-                <a href="#contacts" class="nav-item"><span class="icon">🔌</span> endpoints.json</a>
+                <a href="#profile" class="nav-item active"><span class="icon">👤</span> Профиль.go</a>
+                <a href="#contacts" class="nav-item"><span class="icon">🔌</span> Контакты.json</a>
+                <a href="#about" class="nav-item"><span class="icon">📄</span> Обо_мне.md</a>
+                <a href="#projects" class="nav-item"><span class="icon">📦</span> Проекты/</a>
+                <a href="#skills" class="nav-item"><span class="icon">⚙️</span> Навыки.md</a>
+                <a href="#experience" class="nav-item"><span class="icon">🏆</span> Достижения.log</a>
             </nav>
         </aside>
 
         <!-- Main Content Area -->
         <main class="main-editor">
             
-            <!-- Profile Tab -->
+            <!-- Profile Tab (БЕЗ лишнего кода) -->
             <section id="profile" class="editor-tab">
                 <div class="tab-header">
-                    <span class="file-icon">🐹</span> profile.go
+                    <span class="file-icon">🐹</span> Профиль.go
                     <span class="tab-status">●</span>
-                </div>
-                <div class="code-block">
-                    <div class="line"><span class="keyword">package</span> <span class="string">main</span></div>
-                    <div class="line">&nbsp;</div>
-                    <div class="line"><span class="keyword">type</span> <span class="type">Developer</span> <span class="keyword">struct</span> {</div>
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">string</span> <span class="comment">// "{{.Profile.Name}}"</span></div>
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;Role&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="type">string</span> <span class="comment">// "{{.Profile.Title}}"</span></div>
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;Status&nbsp;&nbsp;&nbsp;<span class="type">string</span> <span class="comment">// "Open to work"</span></div>
-                    <div class="line">}</div>
                 </div>
                 <div class="profile-visual">
                     {{if .Profile.PhotoURL}}
@@ -71,11 +63,46 @@
                 </div>
             </section>
 
+            <!-- Contacts Tab -->
+            {{if .Contacts}}
+            <section id="contacts" class="editor-tab">
+                <div class="tab-header">
+                    <span class="file-icon">🔌</span> Контакты.json
+                </div>
+                <div class="contact-intro">
+                    <h2>Let's Connect</h2>
+                    <p>Open to new opportunities and interesting projects</p>
+                </div>
+                <div class="contact-cards">
+                    {{range .Contacts}}
+                    <a href="{{.URL}}" target="_blank" class="contact-card {{.Type}}">
+                        <div class="contact-icon">
+                            {{if eq .Type "Telegram"}}
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.14.18-.357.295-.6.295l.213-3.053 5.56-5.023c.24-.213-.054-.334-.373-.121l-6.869 4.326-2.96-.924c-.64-.203-.658-.64.135-.954l11.566-4.458c.538-.196 1.006.128.832.94z"/></svg>
+                            {{else if eq .Type "GitHub"}}
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                            {{else if eq .Type "Email"}}
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                            {{else}}
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                            {{end}}
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-type">{{.Type}}</span>
+                            <span class="contact-value">{{.Value}}</span>
+                        </div>
+                        <div class="contact-arrow">→</div>
+                    </a>
+                    {{end}}
+                </div>
+            </section>
+            {{end}}
+
             <!-- About Tab -->
             {{if .About.Description}}
             <section id="about" class="editor-tab">
                 <div class="tab-header">
-                    <span class="file-icon">📄</span> about.md
+                    <span class="file-icon">📄</span> Обо_мне.md
                 </div>
                 <div class="markdown-content">
                     <p>{{.About.Description}}</p>
@@ -87,7 +114,7 @@
             {{if .Projects}}
             <section id="projects" class="editor-tab">
                 <div class="tab-header">
-                    <span class="file-icon">📦</span> projects/
+                    <span class="file-icon">📦</span> Проекты/
                 </div>
                 
                 <div class="api-endpoints">
@@ -144,25 +171,73 @@
                             </div>
                         </div>
                         {{end}}
-                    </div this>
+                    </div>
                 </div>
             </section>
             {{end}}
 
-            <!-- Skills Tab -->
+                        <!-- Skills Tab -->
             {{if .Skills}}
             <section id="skills" class="editor-tab">
                 <div class="tab-header">
-                    <span class="file-icon">⚙️</span> go.mod
+                    <span class="file-icon">⚙️</span> Навыки.md
                 </div>
-                <div class="code-block">
-                    <div class="line"><span class="keyword">module</span> <span class="string">portfolio/skills</span></div>
-                    <div class="line">&nbsp;</div>
-                    <div class="line"><span class="keyword">require</span> (</div>
-                    {{range .Skills}}
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;<span class="string">{{.Name}}</span> <span class="comment">v1.0.0</span></div>
-                    {{end}}
-                    <div class="line">)</div>
+                
+                <div class="skills-grid">
+                    <!-- Languages -->
+                    <div class="skill-category">
+                        <div class="skill-category-header">
+                            <span class="category-icon">🔤</span>
+                            <h3>Languages</h3>
+                        </div>
+                        <div class="skill-tags">
+                            {{range .Skills}}{{if eq .Category "language"}}<span class="skill-tag lang">{{.Name}}</span>{{end}}{{end}}
+                        </div>
+                    </div>
+
+                    <!-- Databases -->
+                    <div class="skill-category">
+                        <div class="skill-category-header">
+                            <span class="category-icon">🗄️</span>
+                            <h3>Databases</h3>
+                        </div>
+                        <div class="skill-tags">
+                            {{range .Skills}}{{if eq .Category "database"}}<span class="skill-tag db">{{.Name}}</span>{{end}}{{end}}
+                        </div>
+                    </div>
+
+                    <!-- Tools -->
+                    <div class="skill-category">
+                        <div class="skill-category-header">
+                            <span class="category-icon">🛠️</span>
+                            <h3>Tools</h3>
+                        </div>
+                        <div class="skill-tags">
+                            {{range .Skills}}{{if eq .Category "tool"}}<span class="skill-tag tool">{{.Name}}</span>{{end}}{{end}}
+                        </div>
+                    </div>
+
+                    <!-- OS -->
+                    <div class="skill-category">
+                        <div class="skill-category-header">
+                            <span class="category-icon">💻</span>
+                            <h3>Operating Systems</h3>
+                        </div>
+                        <div class="skill-tags">
+                            {{range .Skills}}{{if eq .Category "os"}}<span class="skill-tag os">{{.Name}}</span>{{end}}{{end}}
+                        </div>
+                    </div>
+
+                    <!-- Other -->
+                    <div class="skill-category">
+                        <div class="skill-category-header">
+                            <span class="category-icon">🌐</span>
+                            <h3>Other</h3>
+                        </div>
+                        <div class="skill-tags">
+                            {{range .Skills}}{{if eq .Category "other"}}<span class="skill-tag other">{{.Name}}</span>{{end}}{{end}}
+                        </div>
+                    </div>
                 </div>
             </section>
             {{end}}
@@ -171,12 +246,11 @@
             {{if or .Hackathons .Awards .Education}}
             <section id="experience" class="editor-tab">
                 <div class="tab-header">
-                    <span class="file-icon">🏆</span> achievements.log
+                    <span class="file-icon">🏆</span> Достижения.log
                 </div>
-                
                 {{if .Education}}
                 <div class="log-section">
-                    <div class="log-title">[EDUCATION]</div>
+                    <div class="log-title">[ОБРАЗОВАНИЕ]</div>
                     {{range .Education}}
                     <div class="log-entry">
                         <span class="log-time">{{.StartDate}} - {{.EndDate}}</span>
@@ -186,10 +260,9 @@
                     {{end}}
                 </div>
                 {{end}}
-
                 {{if .Hackathons}}
                 <div class="log-section">
-                    <div class="log-title">[HACKATHONS]</div>
+                    <div class="log-title">[ХАКАТОН]</div>
                     {{range .Hackathons}}
                     <div class="log-entry">
                         <span class="log-time">{{.Date}}</span>
@@ -202,141 +275,58 @@
             </section>
             {{end}}
 
-             <!-- Contacts Tab -->
-            {{if .Contacts}}
-            <section id="contacts" class="editor-tab">
-                <div class="tab-header">
-                    <span class="file-icon">🔌</span> endpoints.json
-                </div>
-                <div class="code-block json-block">
-                    <div class="line">{</div>
-                    {{range .Contacts}}
-                    <div class="line">&nbsp;&nbsp;"<span class="key">{{.Type}}</span>": {</div>
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;"value": "<span class="string">{{.Value}}</span>",</div>
-                    <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;"url": "<a href="{{.URL}}" target="_blank" class="string link-json">{{.URL}}</a>"</div>
-                    <div class="line">&nbsp;&nbsp;},</div>
-                    {{end}}
-                    <div class="line">&nbsp;&nbsp;"status": "<span class="string">200 OK</span>"</div>
-                    <div class="line">}</div>
-                </div>
-            </section>
-            {{end}}
-
         </main>
     </div>
 
     <script>
-        // Переключение вкладок проектов
         function openTab(evt, tabName) {
             var tabPanels = document.querySelectorAll(".tab-panel");
             tabPanels.forEach(p => p.classList.remove("active"));
-            
             var tabButtons = document.querySelectorAll(".tab-btn");
             tabButtons.forEach(b => b.classList.remove("active"));
-            
             document.getElementById(tabName).classList.add("active");
             evt.currentTarget.classList.add("active");
         }
 
-        // Boot Sequence Animation
         document.addEventListener('DOMContentLoaded', function() {
-            const lines = document.querySelectorAll('.boot-line');
-            let currentLine = 0;
-            const typingSpeed = 30;
-            const lineDelay = 300;
+            setTimeout(function() {
+                const bootAnim = document.getElementById('bootAnim');
+                const mainContent = document.getElementById('mainContent');
+                if (bootAnim) bootAnim.classList.add('fade-out');
+                setTimeout(function() {
+                    if (mainContent) mainContent.classList.add('visible');
+                }, 200);
+            }, 1000);
 
-            function typeLine() {
-                if (currentLine >= lines.length) {
-                    setTimeout(function() {
-                        document.getElementById('bootAnim').classList.add('fade-out');
-                        setTimeout(function() {
-                            document.getElementById('mainContent').classList.add('visible');
-                        }, 400);
-                    }, 600);
-                    return;
-                }
-
-                const line = lines[currentLine];
-                const text = line.getAttribute('data-text');
-                let charIndex = 0;
-
-                line.innerHTML = '<span class="typed-text"></span><span class="cursor">▋</span>';
-                const typedText = line.querySelector('.typed-text');
-                const cursor = line.querySelector('.cursor');
-
-                function typeChar() {
-                    if (charIndex < text.length) {
-                        typedText.textContent += text.charAt(charIndex);
-                        charIndex++;
-                        setTimeout(typeChar, typingSpeed);
-                    } else {
-                        cursor.style.display = 'none';
-                        currentLine++;
-                        setTimeout(typeLine, lineDelay);
-                    }
-                }
-                typeChar();
-            }
-            setTimeout(typeLine, 500);
-
-            // =========================================
-            // НАВИГАЦИЯ ПО МЕНЮ (Sidebar)
-            // =========================================
             const navItems = document.querySelectorAll('.nav-item');
             const sections = document.querySelectorAll('.editor-tab');
 
-            // 1. Обработка клика по пункту меню
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
                     e.preventDefault();
-                    
-                    // Убираем active у всех
                     navItems.forEach(nav => nav.classList.remove('active'));
-                    
-                    // Добавляем active к кликнутому
                     this.classList.add('active');
-                    
-                    // Плавный скролл к секции
                     const targetId = this.getAttribute('href').substring(1);
                     const targetSection = document.getElementById(targetId);
-                    
                     if (targetSection) {
-                        targetSection.scrollIntoView({ 
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
+                        targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     }
                 });
             });
 
-            // 2. Автоматическая подсветка при скролле (IntersectionObserver)
-            const observerOptions = {
-                root: null,
-                rootMargin: '-20% 0px -70% 0px',
-                threshold: 0
-            };
-
+            const observerOptions = { root: null, rootMargin: '-20% 0px -70% 0px', threshold: 0 };
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
-                        
-                        // Убираем active у всех пунктов меню
                         navItems.forEach(nav => nav.classList.remove('active'));
-                        
-                        // Находим соответствующий пункт меню и делаем его активным
                         const activeNav = document.querySelector(`.nav-item[href="#${id}"]`);
-                        if (activeNav) {
-                            activeNav.classList.add('active');
-                        }
+                        if (activeNav) activeNav.classList.add('active');
                     }
                 });
             }, observerOptions);
 
-            // Наблюдаем за всеми секциями
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            sections.forEach(section => observer.observe(section));
         });
     </script>
 </body>
