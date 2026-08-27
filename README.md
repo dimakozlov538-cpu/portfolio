@@ -25,15 +25,28 @@
 ## 📂 Структура проекта
 
 ```text
-├── public/          # Статические ресурсы (иконки, шрифты)
-├── src/
-│   ├── assets/      # Изображения и медиафайлы
-│   ├── components/  # Переиспользуемые UI-компоненты (Header, Footer, Card)
-│   ├── sections/    # Основные блоки сайта (Hero, About, Projects, Contacts)
-│   ├── styles/      # Глобальные стили и конфигурации темы
-│   └── main.js      # Точка входа в приложение
-├── index.html       # Главный HTML-документ
-└── package.json     # Конфигурация проекта и зависимости
+.
+├── config
+│   └── config.go
+├── db
+│   └── db.go
+├── docker-compose.yaml
+├── Dockerfile
+├── go.mod
+├── go.sum
+├── handlers
+│   └── handlers.go
+├── main.go
+├── models
+│   └── project.go
+├── README.md
+├── static
+│   ├── img
+│   │   └── photo.jpg
+│   └── style.css
+└── templates
+    └── index.html
+
 ```
 
 ## Важно.
